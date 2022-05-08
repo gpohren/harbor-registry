@@ -1,0 +1,9 @@
+- hosts: harbor
+  gather_facts: true
+  remote_user: ubuntu
+  become: yes
+  become_user: root
+  roles:
+    - { role: commons }
+    - { role: docker }
+    - { role: harbor }

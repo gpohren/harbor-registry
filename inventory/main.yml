@@ -1,0 +1,8 @@
+all:
+  vars:
+    harbor_pass: harbor@2022
+    domain_name: registry.example.com
+  children:
+    harbor:
+      hosts:
+        54.162.8.39
