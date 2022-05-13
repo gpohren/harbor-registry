@@ -6,6 +6,12 @@ provider "aws" {
 resource "aws_instance" "harbor" {
   ami           = var.ami
   instance_type = var.harbor
+  
+  root_block_device {
+    volume_size           = "20"
+    volume_type           = "gp2"
+    delete_on_termination = true
+  }
 
   subnet_id                   = aws_subnet.public_1a.id
   associate_public_ip_address = true
