@@ -1,0 +1,26 @@
+- name: Download harbor package
+  get_url:
+    url: https://github.com/goharbor/harbor/releases/download/v2.7.0/harbor-offline-installer-v2.7.0.tgz
+    dest: /tmp/harbor.tgz
+    mode: 0755
+
+- name: Extract /tmp/harbor.tgz
+  unarchive: 
+    src: /tmp/harbor.tgz
+    dest: /tmp
+    remote_src: yes
+  args:
+    creates: /tmp/harbor
+
+- name: Put harbor template
+  template:
+    src: harbor.yml.j2
+    dest: /tmp/harbor/harbor.yml
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Install harbor with trivy
+  shell: "/tmp/harbor/install.sh --with-trivy"
+  args:
+    chdir: /tmp/
